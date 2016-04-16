@@ -1,0 +1,30 @@
+<hr>
+<div class="container">
+  <h2>Poner en Adopción</h2>
+  <div ng-controller="PubActorCtrl as up">
+    <form ng-submit="addActor()" novalidate="novalidate" class="form-horizontal">
+      
+      <div class="control-group">
+        <label class="control-label" for="inputFirstName">First Name:</label>
+        <div class="controls">
+          <input type="text" ng-model="newFirstName"/>
+        </div>
+      </div>
+      
+      <div class="control-group">
+        <label class="control-label" for="inputLastName">Last Name:</label>
+        <div class="controls">
+          <input type="text" ng-model="newLastName"/>
+        </div>
+      </div>
+      </br></br>
+      <div class="control-group">
+        <div class="controls">
+          <button type="submit" class="btn btn-small btn-primary">
+            Publicar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

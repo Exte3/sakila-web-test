@@ -1,0 +1,14 @@
+<hr>
+<div class="w3-container">
+  <!--div class="jumbotron"-->
+    <h2>Lista de Actores</h2>
+    <br>
+    <ul ng-repeat="a in actors">
+	    <li>
+	      <span style="font-size:10pt">
+		      <a href="#/actor/{{a.actorId}}/"> {{a.firstName}} {{a.lastName}}</a>
+		    </span>
+	    </li>
+    </ul>
+  <!--/div-->
+</div>
