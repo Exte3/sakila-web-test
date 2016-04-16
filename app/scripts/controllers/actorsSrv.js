@@ -1,6 +1,6 @@
 angular.module('angularSpa')
     .service('actorsService', function($http){
-        var urlBase= 'http://localhost:8080/sakila1/actors/';
+        var urlBase= 'http://sakila-fingeso.rhcloud.com/service/actors/';
         this.getActors = function(){
             return $http.get(urlBase);
         };
@@ -12,7 +12,7 @@ angular.module('angularSpa')
         this.addActor = function(fName,lName){
             var request = $http({
             method: 'post',
-            url: 'http://localhost:8080/sakila1/actors/',
+            url: 'http://sakila-fingeso.rhcloud.com/service/actors/',
             data: {
                     "firstName": fName,
                     "lastName": lName,
@@ -23,4 +23,3 @@ angular.module('angularSpa')
             return ( request);
         };
     });
-

@@ -1,4 +1,4 @@
-var gulp = require('gulp'), 
+var gulp = require('gulp'),
     bower   = require('gulp-bower'), //ejecuta bower desde gulp
     server  = require('gulp-server-livereload'), //servidor
     sass = require('gulp-sass'), //compilador sass de gulp
@@ -6,6 +6,7 @@ var gulp = require('gulp'),
     useref = require('gulp-useref'),//concatena referencias
     gulpif = require('gulp-if'),
     uglify = require('gulp-uglify'),
+    Promise = require('es6-promise').Promise,
     minifyCss = require('gulp-minify-css'),
     autoprefixer = require('gulp-autoprefixer'),
     del = require('del'),
@@ -29,35 +30,35 @@ gulp.task('wiredep', function () {
     return gulp.src('./app/index.html')
     .pipe(wiredep({
         directory: './app/bower_components',
-        bowerJson: require('./bower.json')        
+        bowerJson: require('./bower.json')
     }))
-    .pipe(gulp.dest('./app')); 
+    .pipe(gulp.dest('./app'));
 });
 
-//Compila archivos Sass a Css 
+//Compila archivos Sass a Css
 gulp.task('sass', function(){
     gulp.src('./app/styles/**/*.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(autoprefixer({
             browsers: ['last 2 versions'],
             cascade: false
-        }))    
-    .pipe(gulp.dest('./app/styles'));   
+        }))
+    .pipe(gulp.dest('./app/styles'));
 });
 
 gulp.task('inject', function(){
     var target = gulp.src('./app/index.html');
     var sources = gulp.src(['./app/scripts/app.js','./app/scripts/**/*.js', './app/styles/**/*.css'], {read: false});
- 
+
   return target.pipe(inject(sources, {relative: true}))
     .pipe(gulp.dest('./app'));
 
 });
 
 //Inicia el servidor web en la carpeta dist
-gulp.task('webserver', function(){  
+gulp.task('webserver', function(){
     gulp.src('app')
-    .pipe(server(serverConfig));    
+    .pipe(server(serverConfig));
 });
 
 gulp.task('watch', function(){
@@ -83,23 +84,23 @@ gulp.task('clean', function(){
 
 gulp.task('npmUpdate', function () {
   var update = require('gulp-update')();
- 
+
   gulp.watch('./package.json').on('change', function (file) {
     update.write(file);
   });
- 
+
 })
 
 gulp.task('useref', function () {
     var assets = useref.assets();
- 
+
     return gulp.src('app/*.html')
         .pipe(assets)
         .pipe(gulpif('*.js',ngAnnotate()))
         .pipe(gulpif('*.js', uglify()))
         .pipe(gulpif('*.css', minifyCss()))
         .pipe(assets.restore())
-        .pipe(useref()) 
+        .pipe(useref())
         .pipe(gulp.dest('dist'));
 });
 
